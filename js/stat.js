@@ -34,7 +34,7 @@ function getRandomValue(min, max) {
 /*
 * Функция для получения не одинакового значения
 * */
-var getNotSameValue = function () {
+var getOriginalValue = function () {
   var value = getRandomValue(0.1, 1);
   while (values) {
     if (!~values.indexOf(value)) {
@@ -47,7 +47,7 @@ var getNotSameValue = function () {
 };
 
 var getColor = function () {
-  return 'rgba(0, 0, 255, ' + getNotSameValue() + ')';
+  return 'rgba(0, 0, 255, ' + getOriginalValue() + ')';
 };
 
 var displayTextCloud = function (ctx, text, x, y) {
