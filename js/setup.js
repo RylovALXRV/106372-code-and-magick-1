@@ -37,9 +37,9 @@ var renderWizard = function (wizard) {
 
 var appendWizards = function (wizards) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i]));
-  }
+  wizards.forEach(function (wizard) {
+    fragment.appendChild(renderWizard(wizard));
+  });
   document.querySelector('.setup-similar-list').appendChild(fragment);
 };
 
