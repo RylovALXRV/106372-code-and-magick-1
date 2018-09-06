@@ -3,6 +3,8 @@
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content.querySelector('.setup-similar-item');
 
+var WIZARD_AMOUNT = 4;
+
 var WizardFeature = {
   NAME: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
   SURNAME: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
@@ -43,8 +45,8 @@ var appendWizards = function (wizards) {
   document.querySelector('.setup-similar-list').appendChild(fragment);
 };
 
-var WIZARDS = generateWizards(4);
+var wizards = generateWizards(WIZARD_AMOUNT);
 
-appendWizards(WIZARDS);
+appendWizards(wizards);
 document.querySelector('.setup').classList.remove('hidden');
 document.querySelector('.setup-similar').classList.remove('hidden');
