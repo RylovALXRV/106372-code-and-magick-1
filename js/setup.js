@@ -14,25 +14,14 @@ var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-// var createWizard = function () {
-//   return {
-//     fullName: getRandomElement(WizardFeature.NAME) + ' ' + getRandomElement(WizardFeature.SURNAME),
-//     coatColor: getRandomElement(WizardFeature.COAT_COLOR),
-//     eyesColor: getRandomElement(WizardFeature.EYES_COLOR)
-//   };
-// };
-
-// это как альтернатива -> наставник предыдущий показывал.)
-// var wizards = Array.apply(null, {length: 4}).map(Function.call, createWizard);
-
-var generateWizards = function (length, wizard) {
+var generateWizards = function (amountWizards) {
   var wizards = [];
 
-  for (var i = 0; i < length; i++) {
+  for (var i = 0; i < amountWizards; i++) {
     wizards.push({
-      fullName: getRandomElement(wizard.NAME) + ' ' + getRandomElement(wizard.SURNAME),
-      coatColor: getRandomElement(wizard.COAT_COLOR),
-      eyesColor: getRandomElement(wizard.EYES_COLOR)
+      fullName: getRandomElement(WizardFeature.NAME) + ' ' + getRandomElement(WizardFeature.SURNAME),
+      coatColor: getRandomElement(WizardFeature.COAT_COLOR),
+      eyesColor: getRandomElement(WizardFeature.EYES_COLOR)
     });
   }
   return wizards;
@@ -54,8 +43,8 @@ var appendWizards = function (wizards) {
   document.querySelector('.setup-similar-list').appendChild(fragment);
 };
 
-var wizards = generateWizards(4, WizardFeature);
+var WIZARDS = generateWizards(4);
 
-appendWizards(wizards);
+appendWizards(WIZARDS);
 document.querySelector('.setup').classList.remove('hidden');
 document.querySelector('.setup-similar').classList.remove('hidden');
