@@ -6,11 +6,11 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
 var WIZARD_AMOUNT = 4;
 
 var WizardFeature = {
-  NAME: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
-  SURNAME: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
-  COAT_COLOR: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
-  EYES_COLOR: ['black', 'red', 'blue', 'yellow', 'green'],
-  FIREBALL_COLOR: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848']
+  NAMES: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
+  SURNAMES: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
+  COAT_COLORS: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
+  EYES_COLORS: ['black', 'red', 'blue', 'yellow', 'green'],
+  FIREBALL_COLORS: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848']
 };
 
 var getRandomElement = function (arr) {
@@ -22,9 +22,9 @@ var generateWizards = function (amountWizards) {
 
   for (var i = 0; i < amountWizards; i++) {
     wizards.push({
-      fullName: getRandomElement(WizardFeature.NAME) + ' ' + getRandomElement(WizardFeature.SURNAME),
-      coatColor: getRandomElement(WizardFeature.COAT_COLOR),
-      eyesColor: getRandomElement(WizardFeature.EYES_COLOR)
+      fullName: getRandomElement(WizardFeature.NAMES) + ' ' + getRandomElement(WizardFeature.SURNAMES),
+      coatColor: getRandomElement(WizardFeature.COAT_COLORS),
+      eyesColor: getRandomElement(WizardFeature.EYES_COLORS)
     });
   }
   return wizards;
@@ -62,13 +62,19 @@ var KeyCode = {
 var setupElement = document.querySelector('.setup');
 var setupOpenElement = document.querySelector('.setup-open');
 var setupCloseElement = setupElement.querySelector('.setup-close');
+var setupUserNameElement = document.querySelector('.setup-user-name');
 var setupWizardCoatElement = setupElement.querySelector('.wizard-coat');
 var setupWizardEyesElement = setupElement.querySelector('.wizard-eyes');
 var setupFireballElement = setupElement.querySelector('.setup-fireball');
 var setupInputFireballHiddenElement = setupElement.querySelector('input[name="fireball-color"]');
 
+var closePopup = function () {
+  setupElement.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === KeyCode.ESC && evt.target !== document.querySelector('.setup-user-name')) {
+  if (evt.keyCode === KeyCode.ESC && evt.target !== setupUserNameElement) {
     closePopup();
   }
 };
@@ -76,11 +82,6 @@ var onPopupEscPress = function (evt) {
 var openPopup = function () {
   setupElement.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
-};
-
-var closePopup = function () {
-  setupElement.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
 };
 
 setupOpenElement.addEventListener('click', function () {
@@ -103,23 +104,18 @@ setupCloseElement.addEventListener('keydown', function (evt) {
   }
 });
 
-// Можно ли так сделать??????? Или нужно ставить ТРИ обработчика на каждый выбор цвета???
-// При выборе цвета fireball'а цвет в поле записывается как rgb формат и сервер в итоге не пропускает -->>
-// поэтому пришлось сделать наоборот сначала записывать в поле input, а затем в DIV... это правильно или
-// можно как-то сделать лучше???
-
 var onSetupPlayerSelectColorClick = function (evt) {
   switch (evt.target) {
     case (setupWizardCoatElement):
-      setupWizardCoatElement.style.fill = getRandomElement(WizardFeature.COAT_COLOR);
+      setupWizardCoatElement.style.fill = getRandomElement(WizardFeature.COAT_COLORS);
       setupElement.querySelector('input[name="coat-color"]').value = setupWizardCoatElement.style.fill;
       return;
     case (setupWizardEyesElement):
-      setupWizardEyesElement.style.fill = getRandomElement(WizardFeature.EYES_COLOR);
+      setupWizardEyesElement.style.fill = getRandomElement(WizardFeature.EYES_COLORS);
       setupElement.querySelector('input[name="eyes-color"]').value = setupWizardEyesElement.style.fill;
       return;
     case (setupFireballElement):
-      setupInputFireballHiddenElement.value = getRandomElement(WizardFeature.FIREBALL_COLOR);
+      setupInputFireballHiddenElement.value = getRandomElement(WizardFeature.FIREBALL_COLORS);
       setupFireballElement.style.backgroundColor = setupInputFireballHiddenElement.value;
       return;
   }
