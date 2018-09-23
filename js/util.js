@@ -10,6 +10,9 @@ window.util = (function () {
     getRandomElement: function (arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     },
+    getRandomValue: function (min, max) {
+      return (Math.random() * (max - min) + min).toFixed(1);
+    },
     isEscEvent: function (evt) {
       return evt.keyCode === KeyCode.ESC;
     },

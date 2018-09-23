@@ -25,24 +25,16 @@
   var values = [];
 
   /*
-  * Функция для получения случайного значения от min до max включительно до десятого значения,
-  * если такое нужно
-  * */
-  function getRandomValue(min, max) {
-    return (Math.random() * (max - min) + min).toFixed(1);
-  }
-
-  /*
   * Функция для получения не одинакового значения
   * */
   var getOriginalValue = function () {
-    var value = getRandomValue(0.1, 1);
+    var value = window.util.getRandomValue(0.1, 1);
     while (values) {
       if (!~values.indexOf(value)) {
         values.push(value);
         break;
       }
-      value = getRandomValue(0.1, 1);
+      value = window.util.getRandomValue(0.1, 1);
     }
     return value;
   };
